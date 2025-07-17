@@ -1,6 +1,7 @@
 package com.example.learnapi.controller;
 
 import com.example.learnapi.dto.ResponseMessage;
+import com.example.learnapi.model.Model;
 import com.example.learnapi.model.Product;
 import com.example.learnapi.service.ProductService;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
 @RequestMapping("/api/product")
 public class ProductController {
 
-    ResponseMessage responseMessage = new ResponseMessage(null, "");
+    ResponseMessage<Product> responseMessage = new ResponseMessage<Product>(null, "");
 
     @Autowired
     private ProductService productService;
@@ -26,7 +27,8 @@ public class ProductController {
     public ResponseEntity<ResponseMessage> createProduct(@Valid @RequestBody Product product) {
         productService.createProduct(product);
         responseMessage.setData(product);
-        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+        responseMessage.setMessage("Product successfully Created");
+        return new ResponseEntity<>(responseMessage, HttpStatus.CREATED);
     }
 
     @GetMapping

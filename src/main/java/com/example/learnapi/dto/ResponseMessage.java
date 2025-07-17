@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-public class ResponseMessage {
+public class ResponseMessage<T> {
 
-    private Model data;
+    private T data;
     private String message;
 
 //    public ResponseMessage() {
