@@ -1,5 +1,6 @@
 package com.example.learnapi.service;
 
+import com.example.learnapi.dto.ProductDto;
 import com.example.learnapi.model.Product;
 import com.example.learnapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,18 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Product createProduct(Product product) {
+    public Product createProduct(ProductDto productDto) {
+        Product product = new Product();
+        product.setProductName(productDto.getProductName());
+        product.setPrice(productDto.getPrice());
         return productRepository.save(product);
     }
 
-    public Product updateProduct(Long id, Product productDetails) {
+    public Product updateProduct(Long id, ProductDto productDto) {
         Product product = productRepository.findById(id).orElse(null);
         if( product != null ) {
-            product.setProductName(productDetails.getProductName());
-            product.setPrice(productDetails.getPrice());
+            product.setProductName(productDto.getProductName());
+            product.setPrice(productDto.getPrice());
             return productRepository.save(product);
         }
         return null;
@@ -37,5 +41,9 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 }

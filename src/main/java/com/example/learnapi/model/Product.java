@@ -19,13 +19,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "required")
-    @Size(min = 3, message = "product name must be at least 3 character")
     @Column(name = "product_Name")
     private String productName;
 
-    @NotNull(message = "price can not null")
-    @Min(value = 0, message = "price cannot be negative")
     @Column(name = "harga")
     private String price;
+
+    private String image;
 }
